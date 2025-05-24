@@ -15,8 +15,8 @@
 
 1. Clone repository:
 ```bash
-git clone [URL_REPOSITORY]
-cd [TEN_THU_MUC]
+git clone https://github.com/dinhcongvy2408/RSA.git
+cd RSA
 ```
 
 2. Cài đặt các thư viện cần thiết:
@@ -54,6 +54,7 @@ RSA/
 
 ## Công nghệ sử dụng
 
+-RSA
 - Python 3.x
 - Flask
 - Flask-SQLAlchemy
@@ -63,10 +64,8 @@ RSA/
 
 ## Tác giả
 
-[Tên của bạn]
-[MSSV]
-[Lớp]
-
-## Giấy phép
-
-MIT License 
+[Dai Nam University]
+[Khoa Công Nghệ thông tin]
+[Đinh Công Vỹ]
+[161020360]
+[Lớp: CNTT-16-06]
