@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Chat với Chữ ký số</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .room-card {
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .room-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Hệ thống Chat với Chữ ký số</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('auth.logout') }}">Đăng xuất</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Tạo phòng mới</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('main.create_room') }}" method="POST">
+                            <div class="mb-3">
+                                <label for="room_name" class="form-label">Tên phòng</label>
+                                <input type="text" class="form-control" id="room_name" name="room_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Tạo phòng</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Tham gia phòng</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('main.join_room_route') }}" method="POST">
+                            <div class="mb-3">
+                                <label for="room_id" class="form-label">Mã phòng</label>
+                                <input type="text" class="form-control" id="room_id" name="room_id" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="join_password" class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control" id="join_password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Tham gia</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3>Danh sách phòng</h3>
+                <div class="row">
+                    {% for room_id, room in rooms.items() %}
+                    <div class="col-md-4">
+                        <div class="card room-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ room.name }}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">Mã phòng: {{ room_id }}</small><br>
+                                    <small class="text-muted">Số thành viên: {{ room.members|length }}</small>
+                                </p>
+                                <form action="{{ url_for('main.join_room_route') }}" method="POST">
+                                    <input type="hidden" name="room_id" value="{{ room_id }}">
+                                    <div class="mb-2">
+                                        <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Tham gia</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
